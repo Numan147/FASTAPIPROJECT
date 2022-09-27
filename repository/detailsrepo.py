@@ -19,7 +19,7 @@ def create(request, db:Session):  #defining a function 'create' to post and stor
     name_validate(request) #these are all defination function to validate data by user as per API standard
     number_validate(request)
     email_validate(request)
-    dupe_email(request, db)
+    dup_email(request, db)
     test=models.Cdetails(first_name=request.first_name,   
                         last_name=request.last_name, 
                         mobile_no= request.mobile_no,
@@ -54,10 +54,10 @@ def email_validate(request:schemas.customer): #function to validate email
         raise HTTPException(status_code=status.HTTP_422_UNPROCESSABLE_ENTITY,
                             detail=f'Invalid Email Entry')
 
-def dupe_email(request:schemas.customer, db:Session): #function to validate duplicate email. #no duplicate email allowed
+def dup_email(request:schemas.customer, db:Session): #function to validate duplicate email. #no duplicate email allowed
     email1=request.email
-    dupelicate_email=db.query(models.Cdetails).filter(models.Cdetails.email==email1).first()
-    if dupelicate_email:
+    duplicate_email=db.query(models.Cdetails).filter(models.Cdetails.email==email1).first()
+    if duplicate_email:
 
         raise HTTPException(status_code=status.HTTP_409_CONFLICT,
                             detail=f'Duplicate email entry not allowed')

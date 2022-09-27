@@ -11,7 +11,7 @@ router=APIRouter(                   #creating a router i.e APIRouter which is in
     
     )
 
-@router.post('/') #post method
+@router.post('/in') #post method
 def insert_detail(request:schemas.customer,db:Session=Depends(database.get_db)):
     return detailsrepo.create(request, db)
 
